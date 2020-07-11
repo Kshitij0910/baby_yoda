@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".TimerFragment">
+
+    <TextView
+        android:id="@+id/facebook"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Facebook Time"/>
+
+    <TextView
+        android:id="@+id/facebook_time"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_toEndOf="@id/facebook"
+        android:layout_toRightOf="@id/facebook"/>
+
+    <TextView
+        android:id="@+id/whatsapp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/facebook"
+        android:text="WhatsApp Time"/>
+
+    <TextView
+        android:id="@+id/whatsapp_time"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_toEndOf="@id/whatsapp"
+        android:layout_toRightOf="@id/whatsapp"
+        android:layout_below="@id/facebook_time"/>
+
+    <TextView
+        android:id="@+id/instagram"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/whatsapp"
+        android:text="Instagram Time"/>
+
+    <TextView
+        android:id="@+id/instagram_time"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/whatsapp_time"
+        android:layout_toEndOf="@id/instagram"
+        android:layout_toRightOf="@id/instagram"/>
+
+    <TextView
+        android:id="@+id/timer"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="00:00"
+        android:layout_centerInParent="true"/>
+
+    <Button
+        android:id="@+id/start_pause"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/timer"
+
+        android:layout_centerHorizontal="true"
+        android:text="START" />
+
+    <Button
+        android:id="@+id/reset"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/timer"
+        android:layout_toEndOf="@id/start_pause"
+        android:layout_toRightOf="@id/start_pause"
+        android:text="RESET"
+        android:visibility="invisible"
+        tools:visibility="visible" />
+
+</RelativeLayout>

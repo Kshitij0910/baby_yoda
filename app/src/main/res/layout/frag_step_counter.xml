@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".StepCounterFragment">
+
+
+    <!--TODO: Displays the step count-->
+    <TextView
+        android:id="@+id/step_count"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"/>
+
+    <!--TODO: Opens dialog to set today's goal-->
+    <TextView
+        android:id="@+id/set_goal"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:text="SET GOAL"
+        android:textColor="#F5F8F8"
+        android:textAlignment="center"
+        android:background="@color/colorPrimary"
+        android:textSize="18sp"
+        android:layout_marginBottom="10dp"/>
+
+    <!--TODO: Display today's step goal-->
+    <TextView
+        android:id="@+id/today_goal"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/step_count"
+        android:text="Today's Goal: 7000 steps"
+        android:layout_centerHorizontal="true"/>
+
+    <!--TODO: Display progess percentage-->
+    <TextView
+        android:id="@+id/today_progress"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/today_goal"
+        android:layout_centerHorizontal="true"/>
+
+
+
+</RelativeLayout>
