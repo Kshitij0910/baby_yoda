@@ -12,7 +12,10 @@ import android.os.Bundle;
 import androidx.fragment.app.Fragment;
 
 import android.os.CountDownTimer;
+import android.os.Handler;
+import android.os.Looper;
 import android.provider.Settings;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -68,7 +71,8 @@ public class TimerFragment extends Fragment {
             startActivity(usageAccessIntent);
 
             if (checkUsageStatsPermission()){
-                getActivity().startService(new Intent(getActivity(), BackgroundService.class));
+                getActivity().startService(new Intent(getContext(), BackgroundService.class));
+                Log.d(TAG, "onDestroy: calling BackgroundService");
 
             }
             else {
@@ -76,7 +80,8 @@ public class TimerFragment extends Fragment {
             }
         }
         else {
-            getActivity().startService(new Intent(getActivity(), BackgroundService.class));
+            getActivity().startService(new Intent(getContext(), BackgroundService.class));
+            Log.d(TAG, "onDestroy: calling BackgroundService");
         }
 
         //Reference for layout variables
@@ -88,7 +93,7 @@ public class TimerFragment extends Fragment {
         whatsappTime=view.findViewById(R.id.whatsapp_time);
         instagramTime=view.findViewById(R.id.instagram_time);
 
-        TimerTask updateTimeView=new TimerTask() {
+        /*TimerTask updateTimeView=new TimerTask() {
             @Override
             public void run() {
                 getActivity().runOnUiThread(new Runnable() {
@@ -118,6 +123,40 @@ public class TimerFragment extends Fragment {
 
                     }
                 });
+            }
+        };*/
+
+        TimerTask updateTimeView=new TimerTask() {
+            @Override
+            public void run() {
+                new Handler(Looper.getMainLooper()).post(new Runnable() {
+                    @Override
+                    public void run() {
+                        long facebookUseTime=appUsageStatsPrefs.getLong(facebookCounter, 0);
+                        long second=(facebookUseTime/1000)%60;
+                        long minute=(facebookUseTime/(1000*60))%60;
+                        long hour=(facebookUseTime/(1000*60*60));
+                        String facebookVal=hour+"hr "+minute+"min "+second+"s";
+                        facebookTime.setText(facebookVal);
+
+                        long whatsappUseTime=appUsageStatsPrefs.getLong(whatsappCounter, 0);
+                        second=(whatsappUseTime/1000)%60;
+                        minute=(whatsappUseTime/(1000*60))%60;
+                        hour=(whatsappUseTime/(1000*60*60));
+                        String whatsappVal=hour+"hr "+minute+"min "+second+"s";
+                        whatsappTime.setText(whatsappVal);
+
+                        long instagramUseTime=appUsageStatsPrefs.getLong(instagramCounter, 0);
+                        second=(instagramUseTime/1000)%60;
+                        minute=(instagramUseTime/(1000*60))%60;
+                        hour=(instagramUseTime/(1000*60*60));
+                        String instagramVal=hour+"hr "+minute+"min "+second+"s";
+                        instagramTime.setText(instagramVal);
+                    }
+                });
+
+
+
             }
         };
 
@@ -279,7 +318,8 @@ public class TimerFragment extends Fragment {
     @Override
     public void onDestroy() {
         if (checkUsageStatsPermission()){
-            getActivity().startService(new Intent(getActivity(), BackgroundService.class));
+            getActivity().startService(new Intent(getContext(), BackgroundService.class));
+            Log.d(TAG, "onDestroy: calling BackgroundService");
         }
 
         super.onDestroy();

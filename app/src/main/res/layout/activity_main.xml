@@ -10,5 +10,48 @@
         android:id="@+id/fragment_container"
         android:layout_width="match_parent"
         android:layout_height="match_parent" />
+    <!--
+    <TextView
+        android:id="@+id/facebook"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Facebook Time"/>
+
+    <TextView
+        android:id="@+id/facebook_time"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_toEndOf="@id/facebook"
+        android:layout_toRightOf="@id/facebook"/>
+
+    <TextView
+        android:id="@+id/whatsapp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/facebook"
+        android:text="WhatsApp Time"/>
+
+    <TextView
+        android:id="@+id/whatsapp_time"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_toEndOf="@id/whatsapp"
+        android:layout_toRightOf="@id/whatsapp"
+        android:layout_below="@id/facebook_time"/>
+
+    <TextView
+        android:id="@+id/instagram"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/whatsapp"
+        android:text="Instagram Time"/>
+
+    <TextView
+        android:id="@+id/instagram_time"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/whatsapp_time"
+        android:layout_toEndOf="@id/instagram"
+        android:layout_toRightOf="@id/instagram"/>-->
 
 </RelativeLayout>
