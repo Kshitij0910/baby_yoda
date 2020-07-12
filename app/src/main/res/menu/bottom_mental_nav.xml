@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    app:cnb_unselectedColor="#F4511E"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+
+
+    <item
+        android:id="@+id/nav_quotes"
+
+        app:cnb_backgroundColor="#202f65"
+        app:cnb_iconColor="#F4511E"
+        app:cnb_textColor="#F4511E"
+        android:title="Affirmations" />
+
+    <item
+        android:id="@+id/nav_video"
+        android:icon="@drawable/ic_video"
+        app:cnb_backgroundColor="#202f65"
+        app:cnb_iconColor="#F4511E"
+        app:cnb_textColor="#F4511E"
+        android:title="Meditate #withMe" />
+    <!--
+    <item
+        android:id="@+id/nav_note_me"
+        android:icon="@drawable/ic_notes"
+        app:cnb_backgroundColor="@color/colorPrimary"
+        app:cnb_iconColor="@color/colorAccent"
+        app:cnb_textColor="@color/colorAccent"
+        android:title="NoteMe" />-->
+    <!--
+    <item
+        android:id="@+id/nav_about_me"
+        android:icon="@drawable/ic_about_me"
+        android:title="ABOUT ME" />-->
+
+
+
+</menu>

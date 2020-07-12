@@ -1,12 +1,9 @@
 package com.example.baby_yoda;
 
-import android.content.res.Configuration;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Bundle;
 
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
 import android.view.LayoutInflater;
@@ -19,18 +16,16 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 
 
-public class SuggestedWorkoutVideosFragment extends Fragment {
+public class MentalHealthVideosFragment extends Fragment {
 
-    TextView yogaVideos, homeWorkoutVideos, hiitVideos, absVideos;
+    TextView meditationVideos, meditationIshaKriyaVideos;
     WebView webView;
     ProgressBar progressBar;
 
-    String yogaUrl="https://www.artofliving.org/yoga-videos";
-    String homeworkoutUrl="https://www.fitnessblender.com/videos/15-minute-bodyweight-cardio-workout-for-fat-burn-and-energy-boost-feel-good-total-body-cardio";
-    String hiitUrl="https://www.fitnessblender.com/videos/intense-at-home-hiit-routine-no-equipment-hiit-workout-video-with-low-impact-modifications";
-    String absUrl="https://www.healthline.com/health/fitness-exercise/best-workouts-under-20-minutes#4";
+    String meditationUrl="https://isha.sadhguru.org/in/en/yoga-meditation/yoga-program-for-beginners/yoga-videos/health";
+    String ishaKriyaUrl="https://isha.sadhguru.org/in/en/yoga-meditation/yoga-program-for-beginners/isha-kriya-meditation";
 
-    public SuggestedWorkoutVideosFragment() {
+    public MentalHealthVideosFragment() {
         // Required empty public constructor
     }
 
@@ -39,64 +34,41 @@ public class SuggestedWorkoutVideosFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              final Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        View view= inflater.inflate(R.layout.frag_suggested_workout_videos, container, false);
+        View view= inflater.inflate(R.layout.frag_mental_health_videos, container, false);
 
-
-        yogaVideos=view.findViewById(R.id.yoga_page);
-        homeWorkoutVideos=view.findViewById(R.id.home_workout_page);
-        hiitVideos=view.findViewById(R.id.hiit_page);
-        absVideos=view.findViewById(R.id.abs_page);
+        meditationVideos=view.findViewById(R.id.meditation_page);
+        meditationIshaKriyaVideos=view.findViewById(R.id.isha_kriya_page);
         webView=view.findViewById(R.id.web);
         progressBar=view.findViewById(R.id.progress_bar);
-
 
         webView.setWebChromeClient(new MyChrome());
         webView.getSettings().setJavaScriptEnabled(true);
 
-        yogaVideos.setOnClickListener(new View.OnClickListener() {
+        meditationVideos.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 progressBar.setVisibility(View.VISIBLE);
-                loadYogaPage(savedInstanceState);
+                loadMeditationPage(savedInstanceState);
             }
         });
 
-        homeWorkoutVideos.setOnClickListener(new View.OnClickListener() {
+        meditationIshaKriyaVideos.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 progressBar.setVisibility(View.VISIBLE);
-                loadHomeWorkoutPage(savedInstanceState);
+                loadIshaKriyaPage(savedInstanceState);
             }
         });
-
-        hiitVideos.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                progressBar.setVisibility(View.VISIBLE);
-                loadHIITPage(savedInstanceState);
-            }
-        });
-        absVideos.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                progressBar.setVisibility(View.VISIBLE);
-                loadAbsPage(savedInstanceState);
-            }
-        });
-
-
-
 
         return view;
     }
 
-    private void loadYogaPage(Bundle savedInstanceState){
-
+    private void loadMeditationPage(Bundle savedInstanceState){
         if (savedInstanceState==null){
             webView.post(new Runnable() {
                 @Override
                 public void run() {
-                    webView.loadUrl(yogaUrl);
+                    webView.loadUrl(meditationUrl);
                     progressBar.setVisibility(View.GONE);
 
 
@@ -105,64 +77,18 @@ public class SuggestedWorkoutVideosFragment extends Fragment {
         }
     }
 
-    private void loadHomeWorkoutPage(Bundle savedInstanceState){
-
+    private void loadIshaKriyaPage(Bundle savedInstanceState){
         if (savedInstanceState==null){
             webView.post(new Runnable() {
                 @Override
                 public void run() {
-                    webView.loadUrl(homeworkoutUrl);
+                    webView.loadUrl(ishaKriyaUrl);
                     progressBar.setVisibility(View.GONE);
 
 
                 }
             });
         }
-    }
-
-    private void loadHIITPage(Bundle savedInstanceState){
-        if (savedInstanceState==null){
-            webView.post(new Runnable() {
-                @Override
-                public void run() {
-                    webView.loadUrl(hiitUrl);
-                    progressBar.setVisibility(View.GONE);
-
-
-                }
-            });
-        }
-    }
-
-    private void loadAbsPage(Bundle savedInstanceState){
-        if (savedInstanceState==null){
-            webView.post(new Runnable() {
-                @Override
-                public void run() {
-                    webView.loadUrl(absUrl);
-                    progressBar.setVisibility(View.GONE);
-
-
-                }
-            });
-        }
-    }
-
-    @Override
-    public void onConfigurationChanged(Configuration newConfig) {
-        super.onConfigurationChanged(newConfig);
-    }
-
-    @Override
-    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
-        super.onViewCreated(view, savedInstanceState);
-        webView.saveState(savedInstanceState);
-    }
-
-    @Override
-    public void onViewStateRestored(@Nullable Bundle savedInstanceState) {
-        super.onViewStateRestored(savedInstanceState);
-        webView.restoreState(savedInstanceState);
     }
 
     private class MyChrome extends WebChromeClient {

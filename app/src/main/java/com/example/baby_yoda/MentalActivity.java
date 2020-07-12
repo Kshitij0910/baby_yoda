@@ -1,18 +1,5 @@
 package com.example.baby_yoda;
 
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.appcompat.app.ActionBarDrawerToggle;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.Toolbar;
-import androidx.core.app.ActivityCompat;
-import androidx.core.content.ContextCompat;
-import androidx.core.view.GravityCompat;
-import androidx.drawerlayout.widget.DrawerLayout;
-import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentManager;
-import androidx.fragment.app.FragmentTransaction;
-
 import android.Manifest;
 import android.app.PendingIntent;
 import android.content.Intent;
@@ -27,6 +14,17 @@ import android.util.Log;
 import android.view.MenuItem;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.appcompat.app.ActionBarDrawerToggle;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
+import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
+import androidx.core.view.GravityCompat;
+import androidx.drawerlayout.widget.DrawerLayout;
+import androidx.fragment.app.Fragment;
+
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.location.LocationListener;
@@ -36,18 +34,18 @@ import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.material.navigation.NavigationView;
+import com.ismaeldivita.chipnavigation.ChipNavigationBar;
 
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener,
+public class MentalActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener,
         OnMapReadyCallback,
         GoogleApiClient.ConnectionCallbacks,
         GoogleApiClient.OnConnectionFailedListener,
         LocationListener {
-    private static final String TAG = "MainActivity";
-
+    private static final String TAG = "MentalActivity";
     private DrawerLayout drawer;
 
     public static final int REQUEST_LOCATION_CODE = 99;
@@ -64,7 +62,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.activity_mental);
 
         mapFragment = (SupportMapFragment) getSupportFragmentManager()
                 .findFragmentById(R.id.map);
@@ -72,29 +70,24 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
+
         drawer = findViewById(R.id.drawer_layout);
         NavigationView navigationView = findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
+
+        ChipNavigationBar bottomNavigationView=findViewById(R.id.bottom_navigation);
+        bottomNavigationView.setOnItemSelectedListener(bottomNavListener);
 
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(this, drawer, toolbar,
                 R.string.navigation_drawer_open, R.string.navigation_drawer_close);
         drawer.addDrawerListener(toggle);
         toggle.syncState();
 
-        /*if (mapFragment==null){
-            FragmentManager fm=getFragmentManager();
-            FragmentTransaction ft=fm.beginTransaction();
-            mapFragment=SupportMapFragment.newInstance();
-            ft.replace(R.id.map, mapFragment).commit();
-        }*/
-        mapFragment.getMapAsync(this);
-
-
         if (savedInstanceState == null) {
-            getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new HomeFragment()).commit();
+            //getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new HomeFragment()).commit();
             navigationView.setCheckedItem(R.id.nav_home);
+            bottomNavigationView.setItemSelected(R.id.nav_quotes, true);
         }
-
     }
 
     @Override
@@ -116,7 +109,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                     onSend();
                 }
                 else {
-                   ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.SEND_SMS}, SEND_SMS_PERMISSION_REQUEST_CODE);
+                    ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.SEND_SMS}, SEND_SMS_PERMISSION_REQUEST_CODE);
                 }
                 break;
 
@@ -127,6 +120,33 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
         return true;
     }
+
+    private ChipNavigationBar.OnItemSelectedListener bottomNavListener=new ChipNavigationBar.OnItemSelectedListener() {
+        @Override
+        public void onItemSelected(int i) {
+            Fragment selectedFragment = null;
+            switch (i) {
+                case R.id.nav_quotes:
+                    selectedFragment = new PositiveQuotesFragment();
+                    break;
+
+                case R.id.nav_video:
+                    selectedFragment = new MentalHealthVideosFragment();
+                    break;
+
+                /*
+                case R.id.nav_note_me:
+                    selectedFragment=new NoteTakingFragment();
+                    break;
+                */
+
+            }
+
+            getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, selectedFragment).commit();
+
+
+        }
+    };
 
     @Override
     public void onBackPressed() {

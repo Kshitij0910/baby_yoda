@@ -23,10 +23,13 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import java.util.Calendar;
+
+import me.itangqi.waveloadingview.WaveLoadingView;
 
 
 public class StepCounterFragment extends Fragment implements SensorEventListener {
@@ -51,14 +54,22 @@ public class StepCounterFragment extends Fragment implements SensorEventListener
     float dailyStartingStepCount, currentStepsInSensor;
 
 
-    TextView stepsCount, setGoal, todayGoal, todayProgress;
+    TextView stepsCount, todayGoal, todayProgress;
     EditText setTodayGoal;
+    RelativeLayout setGoal;
+
+    WaveLoadingView wave;
+
+
 
 
     Calendar calendar;
 
     AlertDialog.Builder goalDialog;
 
+    public StepCounterFragment() {
+        // Required empty public constructor
+    }
 
 
 
@@ -79,12 +90,15 @@ public class StepCounterFragment extends Fragment implements SensorEventListener
         //Reference for layout variables
         stepsCount=view.findViewById(R.id.step_count);
         setGoal=view.findViewById(R.id.set_goal);
-        todayGoal=view.findViewById(R.id.today_goal);
-        todayProgress=view.findViewById(R.id.today_progress);
+        wave=view.findViewById(R.id.wave);
+
+        //todayGoal=view.findViewById(R.id.today_goal);
+        //todayProgress=view.findViewById(R.id.today_progress);
 
         //Extract today's goal from SharedPreferences
         goalRead=stepCountPrefs.getString(goalString, "7000");
-        todayGoal.setText("Today's Goal:"+goalRead+" steps");
+        //todayGoal.setText("Today's Goal:"+goalRead+" steps");
+        wave.setTopTitle("Goal:"+goalRead);
 
 
 
@@ -154,7 +168,9 @@ public class StepCounterFragment extends Fragment implements SensorEventListener
                 goal="7000";
             }*/
             progressPercentage=Math.round((stepSensorValues[0]-dailyStartingStepCount)*100/Integer.parseInt(goalRead));
-            todayProgress.setText(progressPercentage + "%");
+            wave.setProgressValue(progressPercentage);
+            wave.setCenterTitle(progressPercentage +"%");
+            //todayProgress.setText(progressPercentage + "%");
             //Update the steps
             stepsCount.setText(String.valueOf((int)(stepSensorValues[0]-dailyStartingStepCount)));
 
@@ -196,12 +212,15 @@ public class StepCounterFragment extends Fragment implements SensorEventListener
                     stepEditor.apply();
 
                     goalRead=stepCountPrefs.getString(goalString, "7000");
-                    todayGoal.setText("Today's Goal:"+goalRead+" steps");
+                    //todayGoal.setText("Today's Goal:"+goalRead+" steps");
+                    wave.setTopTitle("Goal:"+goalRead);
 
 
 
                     progressPercentage=Math.round((stepSensorValues[0]-dailyStartingStepCount)*100/Integer.parseInt(goalRead));
-                    todayProgress.setText(progressPercentage + "%");
+                    //todayProgress.setText(progressPercentage + "%");
+                    wave.setProgressValue(progressPercentage);
+                    wave.setCenterTitle(progressPercentage +"%");
 
                 }
                 else {

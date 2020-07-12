@@ -66,6 +66,12 @@ public class HomeFragmentWithRedAlartFragment extends Fragment  implements OnMap
 
     Button redAlert;
 
+
+    public HomeFragmentWithRedAlartFragment() {
+        // Required empty public constructor
+    }
+
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
